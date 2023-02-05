@@ -1,0 +1,32 @@
+class Solution {
+public:
+    long long countQuadruplets(vector<int>& nums) {
+        int n=nums.size();
+        for(auto &x : nums){
+            x--;
+        }
+        vector<vector<int>> pre_less(n,vector<int>(n,0));
+        vector<vector<int>> suff_greater(n,vector<int>(n,0));
+
+        for(int j=0; j<n; ++j){
+            for(int i=0; i<n; ++i){
+                if(nums[i]<j) pre_less[i][j]++;
+                if (i) pre_less[i][j] += pre_less[i-1][j];
+            }
+        }
+        for(int j=0; j<n; ++j){
+            for(int i=n-1; i>=0; --i){
+                if(nums[i]>j) suff_greater[i][j]++;
+                if(i!=n-1) suff_greater[i][j] += suff_greater[i+1][j];
+            }
+        }
+        long long result=0;
+        for(int j=1; j<n-2; ++j){
+            for(int k=j+1; k<n-1; ++k){
+                if(nums[k]>nums[j]) continue;
+                result += 1LL * pre_less[j-1][nums[k]] * suff_greater[k+1][nums[j]];
+            }
+        }
+        return result;
+    }
+};
