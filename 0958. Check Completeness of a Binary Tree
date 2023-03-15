@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isCompleteTree(TreeNode* root) {
+        if(root == nullptr) return true;
+    
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        bool check = false;
+        while(!q.empty()) {
+            TreeNode* curr = q.front();
+            q.pop();
+        
+            if(curr->left) {
+                if (check)
+                    return false;
+                q.push(curr->left);
+            } else {
+                check = true;
+            }
+        
+            if(curr->right) {
+                if(check) return false;
+                q.push(curr->right);
+            } else {
+                check = true;
+            }
+        }
+
+        return true;
+    }
+};
