@@ -1,0 +1,37 @@
+class BrowserHistory {
+public:
+    stack<string>a;
+    stack<string>b;
+    BrowserHistory(string homepage) {
+        visit(homepage);
+    }
+    
+    void visit(string url) {
+        a.push(url);
+        b = stack<string>();
+    }
+    
+    string back(int steps) {
+        while(a.size()>1 && steps-- > 0){
+            b.push(a.top());
+            a.pop();
+        }
+        return a.top();
+    }
+    
+    string forward(int steps) {
+        while(!b.empty() && steps-- > 0){
+            a.push(b.top());
+            b.pop();
+        }
+        return a.top();
+    }
+};
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory* obj = new BrowserHistory(homepage);
+ * obj->visit(url);
+ * string param_2 = obj->back(steps);
+ * string param_3 = obj->forward(steps);
+ */
