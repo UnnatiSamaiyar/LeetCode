@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        if(connections.size() < n-1) return -1;
+        vector<bool>visited(n,0);
+        unordered_map<int,vector<int>>mp;
+        int count = -1;
+        for(auto i: connections){
+            mp[i[0]].push_back(i[1]);
+            mp[i[1]].push_back(i[0]);
+        }
+
+        for(int i=0; i<n; i++){
+            if(!visited[i]){
+                queue<int>q;
+                q.push(i);
+                visited[i] = 1;
+                count++;
+                while(!q.empty()){
+                    int temp = q.front();
+                    q.pop();
+                    for(auto i: mp[temp]){
+                        if(visited[i] == 0){
+                            visited[i] = 1;
+                            q.push(i);
+                        }
+                    }
+                }
+            }
+        }
+        return count;
+    }
+};
