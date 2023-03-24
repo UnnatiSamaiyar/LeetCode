@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int dfs(int n, vector<bool>& b, vector<vector<int>>& v){
+        int a = 0;
+        b[n] = true;
+        for(auto &i: v[n]){
+            if(!b[abs(i)]){
+                a += dfs(abs(i),b,v) + (i>0);
+            }
+        }
+        return a;
+    }
+    int minReorder(int n, vector<vector<int>>& connections) {
+        vector<bool>v(n,false);
+        int ans = 0;
+        vector<vector<int>> temp(n);
+        for(auto &i: connections){
+            temp[i[0]].push_back(i[1]);
+            temp[i[1]].push_back(-i[0]);
+        }
+        return dfs(0, v, temp);
+    }
+};
