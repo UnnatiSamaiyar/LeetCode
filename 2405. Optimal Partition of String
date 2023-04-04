@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int partitionString(string s) {
+        int i = 0, ans = 1,count = 0;
+        while(i < s.size()){
+            int val = s[i] - 'a';
+            if( count & (1<<val) ) {
+                count = 0;
+                ans++;
+            }
+            count = count | (1<<val);
+            i++;
+        }
+        return ans;
+    }
+};
