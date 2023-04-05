@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> sumZero(int n) {
+        int sum = 0;
+        vector<int>temp(n,0);
+        int low = 0;
+        int high = n-1;
+        int mid = n/2;
+        while(low<high){
+            temp[low++] = -mid;
+            temp[high--] = mid;
+            mid--;
+        }
+        return temp;
+    }
+};
